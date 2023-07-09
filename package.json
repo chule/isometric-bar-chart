@@ -1,13 +1,14 @@
 {
   "name": "isometric-bar-chart",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "isometric bar chart",
   "main": "src/index.ts",
   "files": [
     "src/**/*"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "semantic-release": "semantic-release"
   },
   "author": "Igor Cuckovic",
   "license": "ISC",
@@ -18,7 +19,8 @@
     "typescript": "^5.1.6"
   },
   "devDependencies": {
-    "@types/react": "^18.2.14"
+    "@types/react": "^18.2.14",
+    "semantic-release": "^21.0.7"
   },
   "release": {
     "branches": [
@@ -26,8 +28,11 @@
       "next"
     ]
   },
-  "private": "false",
   "publishConfig": {
     "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chule/isometric-bar-chart.git"
   }
 }
