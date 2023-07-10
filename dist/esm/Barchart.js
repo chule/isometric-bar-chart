@@ -16,18 +16,7 @@ var Barchart = function (_a) {
     ] : _b, _c = _a.svgWidth, svgWidth = _c === void 0 ? 800 : _c, _e = _a.svgHeight, svgHeight = _e === void 0 ? 400 : _e, _f = _a.marginTop, marginTop = _f === void 0 ? 100 : _f, _g = _a.marginRight, marginRight = _g === void 0 ? 50 : _g, _h = _a.marginBottom, marginBottom = _h === void 0 ? 50 : _h, _j = _a.marginLeft, marginLeft = _j === void 0 ? 50 : _j, _k = _a.color, color = _k === void 0 ? "#AE3E33" : _k, _l = _a.sizeCorrector, sizeCorrector = _l === void 0 ? 2 : _l, _m = _a.delayMultiplier, delayMultiplier = _m === void 0 ? 100 : _m, _o = _a.fontSize, fontSize = _o === void 0 ? 16 : _o;
     var svgRef = useRef(null);
     useEffect(function () {
-        d3.select(svgRef.current).selectAll().remove();
-        // const data = [
-        //   { name: "#1", value: 12 },
-        //   { name: "#2", value: 20 },
-        //   { name: "#3", value: 30 },
-        //   { name: "#4", value: 0 },
-        //   { name: "#5", value: 63 },
-        //   { name: "#6", value: 35 },
-        //   { name: "#7", value: 22 },
-        //   { name: "#8", value: 35 },
-        //   { name: "#9", value: 22 },
-        // ];
+        d3.select(svgRef.current).selectAll("*").remove();
         var width = svgWidth - (marginLeft + marginRight);
         var height = svgHeight - (marginTop + marginBottom);
         var topPoints = [13.59, 5.745, 0, 2.873, 13.59, 0, 27.179, 2.873].map(function (d) { return d * sizeCorrector; });
@@ -151,7 +140,19 @@ var Barchart = function (_a) {
             var expandedLine = d3.range(scaledMax, scaledMax - (height - yScale(d.value)), -defaultPointsHeigth);
             return barGenerator({ expandedLine: expandedLine, element: d });
         });
-    }, []);
+    }, [
+        data,
+        svgWidth,
+        svgHeight,
+        marginTop,
+        marginRight,
+        marginBottom,
+        marginLeft,
+        color,
+        sizeCorrector,
+        delayMultiplier,
+        fontSize,
+    ]);
     return React.createElement("svg", { ref: svgRef });
 };
 export default Barchart;

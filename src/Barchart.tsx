@@ -2,6 +2,7 @@
 
 import * as d3 from "d3";
 import React from "react";
+
 import { useRef, useEffect } from "react";
 
 const Barchart = ({
@@ -30,19 +31,7 @@ const Barchart = ({
   const svgRef = useRef(null);
 
   useEffect(() => {
-    d3.select(svgRef.current).selectAll().remove();
-
-    // const data = [
-    //   { name: "#1", value: 12 },
-    //   { name: "#2", value: 20 },
-    //   { name: "#3", value: 30 },
-    //   { name: "#4", value: 0 },
-    //   { name: "#5", value: 63 },
-    //   { name: "#6", value: 35 },
-    //   { name: "#7", value: 22 },
-    //   { name: "#8", value: 35 },
-    //   { name: "#9", value: 22 },
-    // ];
+    d3.select(svgRef.current).selectAll("*").remove();
 
     const width = svgWidth - (marginLeft + marginRight);
     const height = svgHeight - (marginTop + marginBottom);
@@ -207,7 +196,19 @@ const Barchart = ({
 
         return barGenerator({ expandedLine, element: d });
       });
-  }, []);
+  }, [
+    data,
+    svgWidth,
+    svgHeight,
+    marginTop,
+    marginRight,
+    marginBottom,
+    marginLeft,
+    color,
+    sizeCorrector,
+    delayMultiplier,
+    fontSize,
+  ]);
 
   return <svg ref={svgRef}></svg>;
 };
