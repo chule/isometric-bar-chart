@@ -1,6 +1,10 @@
 "use client";
+import { select, create } from "d3-selection";
+import { max, range } from "d3-array";
+import { scaleBand, scaleLinear } from "d3-scale";
+import { rgb } from "d3-color";
+import "d3-transition";
 import React, { useRef, useEffect } from "react";
-import { select, max, scaleBand, scaleLinear, create, rgb, range } from "d3";
 var Barchart = function (_a) {
     var _b = _a.data, data = _b === void 0 ? [
         { name: "#1", value: 12 },

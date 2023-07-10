@@ -1,3 +1,4 @@
+import "d3-transition";
 import React from "react";
 declare const Barchart: ({ data, svgWidth, svgHeight, marginTop, marginRight, marginBottom, marginLeft, color, sizeCorrector, delayMultiplier, fontSize, }: {
     data?: {
