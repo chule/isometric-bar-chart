@@ -1,9 +1,7 @@
 "use client";
 
-import * as d3 from "d3";
-import React from "react";
-
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
+import { select, max, scaleBand, scaleLinear, create, rgb, range } from "d3";
 
 const Barchart = ({
   data = [
@@ -31,7 +29,7 @@ const Barchart = ({
   const svgRef = useRef(null);
 
   useEffect(() => {
-    d3.select(svgRef.current).selectAll("*").remove();
+    select(svgRef.current).selectAll("*").remove();
 
     const width = svgWidth - (marginLeft + marginRight);
     const height = svgHeight - (marginTop + marginBottom);
@@ -46,22 +44,21 @@ const Barchart = ({
 
     const defaultPointsHeigth = 3 * sizeCorrector;
 
-    const xScale = d3
-      .scaleBand()
+    const xScale = scaleBand()
       .domain(data.map((d) => d.name))
       .range([0, width]);
 
-    const max = d3.max(data.map((d) => d.value)) as unknown as number;
+    const maximum = max(data.map((d) => d.value)) as unknown as number;
 
-    const yScale = d3.scaleLinear().domain([0, max]).range([height, 0]);
+    const yScale = scaleLinear().domain([0, maximum]).range([height, 0]);
 
-    const scaledMax = yScale(max);
+    const scaledMax = yScale(maximum);
 
     const pointsGenerator = (element: { name: string; value: number }) => {
-      const node = d3.create("svg:g");
+      const node = create("svg:g");
 
       const brighterColor = (c: string) =>
-        d3.rgb(c).brighter(0.6).toString() as string;
+        rgb(c).brighter(0.6).toString() as string;
 
       if (element.value === 0) {
         node
@@ -98,7 +95,7 @@ const Barchart = ({
       expandedLine: number[];
       element: { name: string; value: number };
     }) => {
-      const node = d3.create("svg:g");
+      const node = create("svg:g");
 
       if (expandedLine.length === 0) {
         node
@@ -168,8 +165,7 @@ const Barchart = ({
       return node.node();
     };
 
-    const svg = d3
-      .select(svgRef.current)
+    const svg = select(svgRef.current)
       .style("background", "#eee")
       .attr("width", svgWidth)
       .attr("height", svgHeight);
@@ -191,7 +187,7 @@ const Barchart = ({
           })`
       )
       .append((d) => {
-        const expandedLine = d3.range(
+        const expandedLine = range(
           scaledMax,
           scaledMax - (height - yScale(d.value)),
           -defaultPointsHeigth
