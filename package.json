@@ -1,6 +1,6 @@
 {
   "name": "isometric-bar-chart",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "isometric bar chart",
   "main": "dist/esm/index.js",
   "files": [
