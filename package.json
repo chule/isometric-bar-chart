@@ -2,6 +2,11 @@
   "name": "isometric-bar-chart",
   "version": "0.0.5",
   "description": "isometric bar chart",
+  "keywords": [
+    "chart",
+    "isometric",
+    "barchart"
+  ],
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
