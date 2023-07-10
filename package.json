@@ -2,14 +2,15 @@
   "name": "isometric-bar-chart",
   "version": "0.0.0-development",
   "description": "isometric bar chart",
-  "main": "src/index.ts",
+  "main": "dist/esm/index.js",
   "files": [
     "src/**/*"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "semantic-release": "semantic-release",
-    "build":"tsc"
+    "build": "tsc",
+    "rollup": "rollup -c"
   },
   "author": "Igor Cuckovic",
   "license": "ISC",
@@ -20,8 +21,7 @@
     "typescript": "^5.1.6"
   },
   "devDependencies": {
-    "@types/react": "^18.2.14",
-    "semantic-release": "^21.0.7"
+    "@types/react": "^18.2.14"
   },
   "release": {
     "branches": [

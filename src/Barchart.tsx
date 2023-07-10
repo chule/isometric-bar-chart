@@ -1,6 +1,7 @@
 "use client";
 
 import * as d3 from "d3";
+import React from "react";
 import { useRef, useEffect } from "react";
 
 const Barchart = ({
@@ -61,7 +62,7 @@ const Barchart = ({
       .domain(data.map((d) => d.name))
       .range([0, width]);
 
-    const max = d3.max(data.map((d) => d.value)) as number;
+    const max = d3.max(data.map((d) => d.value)) as unknown as number;
 
     const yScale = d3.scaleLinear().domain([0, max]).range([height, 0]);
 
@@ -114,7 +115,7 @@ const Barchart = ({
         node
           .attr("class", "pointGroup")
 
-          .append((d) => {
+          .append(() => {
             return pointsGenerator(element);
           });
       } else {
@@ -123,16 +124,16 @@ const Barchart = ({
           .data(expandedLine)
           .join("g")
           .attr("class", "pointGroup")
-          .attr("transform", function (d, i) {
+          .attr("transform", function (d) {
             return `translate(${0},${d} )`;
           })
-          .append((d) => {
+          .append(() => {
             return pointsGenerator(element);
           })
           .style("opacity", 0)
           .transition()
           .duration(100)
-          .delay(function (d, i) {
+          .delay(function (_d, i) {
             return i * delayMultiplier;
           })
           .style("opacity", 1);
@@ -197,7 +198,7 @@ const Barchart = ({
             yScale(d.value) + (height - yScale(d.value))
           })`
       )
-      .append((d, i) => {
+      .append((d) => {
         const expandedLine = d3.range(
           scaledMax,
           scaledMax - (height - yScale(d.value)),
