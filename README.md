@@ -84,26 +84,3 @@ An array of data points with a value for the x axis and y axis respectively. The
 ]
 ```
 
-#### Default Props
-
-data = [
-{ name: "#1", value: 12 },
-{ name: "#2", value: 20 },
-{ name: "#3", value: 30 },
-{ name: "#4", value: 0 },
-{ name: "#5", value: 63 },
-{ name: "#6", value: 35 },
-{ name: "#7", value: 22 },
-{ name: "#8", value: 35 },
-{ name: "#9", value: 22 },
-],
-svgWidth = 800,
-svgHeight = 400,
-marginTop = 100,
-marginRight = 50,
-marginBottom = 50,
-marginLeft = 50,
-color = "#AE3E33",
-sizeCorrector = 2,
-delayMultiplier = 100,
-fontSize = 16,
