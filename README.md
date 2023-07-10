@@ -4,6 +4,10 @@
 ![npm bundle size](https://img.shields.io/bundlephobia/min/isometric-bar-chart)
 ![npm](https://img.shields.io/npm/l/isometric-bar-chart)
 
+## Demo
+
+https://chule.github.io/isometric-bar-chart/
+
 ## Features
 
 React barchart for displaying ordinal data using animated isometric bars
