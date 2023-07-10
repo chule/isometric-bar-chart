@@ -1,9 +1,5 @@
 "use client";
-import { select, create } from "d3-selection";
-import { max, range } from "d3-array";
-import { scaleBand, scaleLinear } from "d3-scale";
-import { rgb } from "d3-color";
-import "d3-transition";
+import * as d3 from "d3";
 import React, { useRef, useEffect } from "react";
 var Barchart = function (_a) {
     var _b = _a.data, data = _b === void 0 ? [
@@ -19,7 +15,7 @@ var Barchart = function (_a) {
     ] : _b, _c = _a.svgWidth, svgWidth = _c === void 0 ? 800 : _c, _e = _a.svgHeight, svgHeight = _e === void 0 ? 400 : _e, _f = _a.marginTop, marginTop = _f === void 0 ? 100 : _f, _g = _a.marginRight, marginRight = _g === void 0 ? 50 : _g, _h = _a.marginBottom, marginBottom = _h === void 0 ? 50 : _h, _j = _a.marginLeft, marginLeft = _j === void 0 ? 50 : _j, _k = _a.color, color = _k === void 0 ? "#AE3E33" : _k, _l = _a.sizeCorrector, sizeCorrector = _l === void 0 ? 2 : _l, _m = _a.delayMultiplier, delayMultiplier = _m === void 0 ? 100 : _m, _o = _a.fontSize, fontSize = _o === void 0 ? 16 : _o;
     var svgRef = useRef(null);
     useEffect(function () {
-        select(svgRef.current).selectAll("*").remove();
+        d3.select(svgRef.current).selectAll("*").remove();
         var width = svgWidth - (marginLeft + marginRight);
         var height = svgHeight - (marginTop + marginBottom);
         var topPoints = [13.59, 5.745, 0, 2.873, 13.59, 0, 27.179, 2.873].map(function (d) { return d * sizeCorrector; });
@@ -28,16 +24,17 @@ var Barchart = function (_a) {
             2.8733,
         ].map(function (d) { return d * sizeCorrector; });
         var defaultPointsHeigth = 3 * sizeCorrector;
-        var xScale = scaleBand()
+        var xScale = d3
+            .scaleBand()
             .domain(data.map(function (d) { return d.name; }))
             .range([0, width]);
-        var maximum = max(data.map(function (d) { return d.value; }));
-        var yScale = scaleLinear().domain([0, maximum]).range([height, 0]);
-        var scaledMax = yScale(maximum);
+        var max = d3.max(data.map(function (d) { return d.value; }));
+        var yScale = d3.scaleLinear().domain([0, max]).range([height, 0]);
+        var scaledMax = yScale(max);
         var pointsGenerator = function (element) {
-            var node = create("svg:g");
+            var node = d3.create("svg:g");
             var brighterColor = function (c) {
-                return rgb(c).brighter(0.6).toString();
+                return d3.rgb(c).brighter(0.6).toString();
             };
             if (element.value === 0) {
                 node
@@ -67,7 +64,7 @@ var Barchart = function (_a) {
         };
         var barGenerator = function (_a) {
             var expandedLine = _a.expandedLine, element = _a.element;
-            var node = create("svg:g");
+            var node = d3.create("svg:g");
             if (expandedLine.length === 0) {
                 node
                     .attr("class", "pointGroup")
@@ -124,7 +121,8 @@ var Barchart = function (_a) {
             });
             return node.node();
         };
-        var svg = select(svgRef.current)
+        var svg = d3
+            .select(svgRef.current)
             .style("background", "#eee")
             .attr("width", svgWidth)
             .attr("height", svgHeight);
@@ -138,7 +136,7 @@ var Barchart = function (_a) {
             return "translate(".concat(xScale(d.name), ",").concat(yScale(d.value) + (height - yScale(d.value)), ")");
         })
             .append(function (d) {
-            var expandedLine = range(scaledMax, scaledMax - (height - yScale(d.value)), -defaultPointsHeigth);
+            var expandedLine = d3.range(scaledMax, scaledMax - (height - yScale(d.value)), -defaultPointsHeigth);
             return barGenerator({ expandedLine: expandedLine, element: d });
         });
     }, [
