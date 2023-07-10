@@ -176,7 +176,10 @@ const Barchart = ({
 
     svg
       .append("g")
-      .attr("transform", `translate(${marginLeft},${marginTop})`)
+      .attr(
+        "transform",
+        `translate(${marginLeft + (1 / sizeCorrector) * 25},${marginTop})`
+      )
       .selectAll("g")
       .data(data)
       .join("g")

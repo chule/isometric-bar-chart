@@ -129,7 +129,7 @@ var Barchart = function (_a) {
             .attr("height", svgHeight);
         svg
             .append("g")
-            .attr("transform", "translate(".concat(marginLeft, ",").concat(marginTop, ")"))
+            .attr("transform", "translate(".concat(marginLeft + (1 / sizeCorrector) * 25, ",").concat(marginTop, ")"))
             .selectAll("g")
             .data(data)
             .join("g")
