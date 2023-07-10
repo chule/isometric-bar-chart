@@ -2,9 +2,8 @@
 "use client";
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
-var d3 = tslib_1.__importStar(require("d3"));
-var react_1 = tslib_1.__importDefault(require("react"));
-var react_2 = require("react");
+var react_1 = tslib_1.__importStar(require("react"));
+var d3_1 = require("d3");
 var Barchart = function (_a) {
     var _b = _a.data, data = _b === void 0 ? [
         { name: "#1", value: 12 },
@@ -17,9 +16,9 @@ var Barchart = function (_a) {
         { name: "#8", value: 35 },
         { name: "#9", value: 22 },
     ] : _b, _c = _a.svgWidth, svgWidth = _c === void 0 ? 800 : _c, _e = _a.svgHeight, svgHeight = _e === void 0 ? 400 : _e, _f = _a.marginTop, marginTop = _f === void 0 ? 100 : _f, _g = _a.marginRight, marginRight = _g === void 0 ? 50 : _g, _h = _a.marginBottom, marginBottom = _h === void 0 ? 50 : _h, _j = _a.marginLeft, marginLeft = _j === void 0 ? 50 : _j, _k = _a.color, color = _k === void 0 ? "#AE3E33" : _k, _l = _a.sizeCorrector, sizeCorrector = _l === void 0 ? 2 : _l, _m = _a.delayMultiplier, delayMultiplier = _m === void 0 ? 100 : _m, _o = _a.fontSize, fontSize = _o === void 0 ? 16 : _o;
-    var svgRef = (0, react_2.useRef)(null);
-    (0, react_2.useEffect)(function () {
-        d3.select(svgRef.current).selectAll("*").remove();
+    var svgRef = (0, react_1.useRef)(null);
+    (0, react_1.useEffect)(function () {
+        (0, d3_1.select)(svgRef.current).selectAll("*").remove();
         var width = svgWidth - (marginLeft + marginRight);
         var height = svgHeight - (marginTop + marginBottom);
         var topPoints = [13.59, 5.745, 0, 2.873, 13.59, 0, 27.179, 2.873].map(function (d) { return d * sizeCorrector; });
@@ -28,17 +27,16 @@ var Barchart = function (_a) {
             2.8733,
         ].map(function (d) { return d * sizeCorrector; });
         var defaultPointsHeigth = 3 * sizeCorrector;
-        var xScale = d3
-            .scaleBand()
+        var xScale = (0, d3_1.scaleBand)()
             .domain(data.map(function (d) { return d.name; }))
             .range([0, width]);
-        var max = d3.max(data.map(function (d) { return d.value; }));
-        var yScale = d3.scaleLinear().domain([0, max]).range([height, 0]);
-        var scaledMax = yScale(max);
+        var maximum = (0, d3_1.max)(data.map(function (d) { return d.value; }));
+        var yScale = (0, d3_1.scaleLinear)().domain([0, maximum]).range([height, 0]);
+        var scaledMax = yScale(maximum);
         var pointsGenerator = function (element) {
-            var node = d3.create("svg:g");
+            var node = (0, d3_1.create)("svg:g");
             var brighterColor = function (c) {
-                return d3.rgb(c).brighter(0.6).toString();
+                return (0, d3_1.rgb)(c).brighter(0.6).toString();
             };
             if (element.value === 0) {
                 node
@@ -68,7 +66,7 @@ var Barchart = function (_a) {
         };
         var barGenerator = function (_a) {
             var expandedLine = _a.expandedLine, element = _a.element;
-            var node = d3.create("svg:g");
+            var node = (0, d3_1.create)("svg:g");
             if (expandedLine.length === 0) {
                 node
                     .attr("class", "pointGroup")
@@ -125,8 +123,7 @@ var Barchart = function (_a) {
             });
             return node.node();
         };
-        var svg = d3
-            .select(svgRef.current)
+        var svg = (0, d3_1.select)(svgRef.current)
             .style("background", "#eee")
             .attr("width", svgWidth)
             .attr("height", svgHeight);
@@ -140,7 +137,7 @@ var Barchart = function (_a) {
             return "translate(".concat(xScale(d.name), ",").concat(yScale(d.value) + (height - yScale(d.value)), ")");
         })
             .append(function (d) {
-            var expandedLine = d3.range(scaledMax, scaledMax - (height - yScale(d.value)), -defaultPointsHeigth);
+            var expandedLine = (0, d3_1.range)(scaledMax, scaledMax - (height - yScale(d.value)), -defaultPointsHeigth);
             return barGenerator({ expandedLine: expandedLine, element: d });
         });
     }, [
